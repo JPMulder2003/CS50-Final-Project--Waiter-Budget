@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<h1>Overview {{ current_date }}</h1>
+<br>
+<form action="/" method="post">
+    <div class="mb-3">
+        <select class="form-select mx-auto w-auto" name="date_selected">
+            <option selected value="{{ current_date }}"> {{ current_date }} </option>
+            {% for date in user_dates %}
+            <option value="{{ date.date }}"> {{ date.date }} </option>
+            {% endfor %}
+        </select>
+        <br>
+        <button class="btn btn-primary" type="submit" name="submit" value="view">View</button>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <table>
+                <tr>
+                    <th>INCOME</th>
+                    <td>{{ income | zar }}</td>
+                </tr>
+                <tr>
+                    <th>TIPS</th>
+                    <td>{{ tips | zar }}</td>
+                </tr>
+                <tr>
+                    <th>TOTAL INCOME</th>
+                    <td>{{ (income + tips) | zar }}</td>
+                </tr>
+                <tr>
+                    <th>TOTAL EXPENSES: </th>
+                    <td>{{ expenses | zar }}</td>
+                </tr>
+                <tr>
+                    <th>TOTAL REMAINING FUNDS: </th>
+                    <td>{{ ((income + tips) - expenses) | zar }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="column">
+            <table>
+                {% for dict_item in all_expenses %}  <!-- https://stackoverflow.com/questions/25373154/how-to-iterate-through-a-list-of-dictionaries-in-jinja-template -->
+                    {% for key, value in dict_item.items() %}
+                    <tr>
+                        <th style="text-transform: capitalize"> {{ key }} </th>
+                        <td> {{ value | zar }} </td>
+                        <td><input autocomplete="off" name="update_{{ key }}" placeholder="Update {{ key }} Costs" type="number" min="0" step="0.01"></td>
+                        <td><button class="btn btn-primary btn-sm" type="submit" name="submit" value="{{ key }}">UPDATE</button></td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</form>
+{% endblock %}
+<!--
+style="position: relative; height:20vh; width:40vw" -->

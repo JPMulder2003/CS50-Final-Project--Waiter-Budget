@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Expenses
+{% endblock %}
+
+{% block main %}
+<h1>Expenses</h1>
+<br>
+    <form action="/expenses" method="post">
+        <div class="mb-3">
+            <input type="month" id="date" name="date">
+        </div>
+        <div class="mb-3">
+            {% for expense in expenses %}
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="{{ expense }}" name="{{ expense }}" placeholder="{{ expense }} Costs" type="number" min="0" step="0.01">
+            {% endfor %}
+        </div>
+        <br>
+        <button class="btn btn-primary btn-lg" type="submit">Save</button>
+    </form>
+{% endblock %}

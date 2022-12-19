@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Income
+{% endblock %}
+
+{% block main %}
+<h1>Monthly Income</h1>
+<br>
+    <form action="/income" method="post">
+        <div class="mb-3">
+            <input type="month" id="date" name="date">
+        </div>
+        </div>
+        <div class="mb-3">
+            <p>Total hours worked for the month</p>
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="hours" name="hours" placeholder="Hours Worked" min="0" step="0.01" type="number">
+        </div>
+        <div class="mb-3">
+            <p>What is your hourly pay rate </p>
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="rate" name="rate" placeholder="Hourly Rate" min="0" step="0.01" type="number">
+        </div>
+        <div class="mb-3">
+            <p>Any other form of income value</p>
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="other" name="other" placeholder="Other Income" type="number" min="0" step="0.01">
+        </div>
+        <button class="btn btn-primary btn-lg" type="submit">Save</button>
+    </form>
+{% endblock %}
